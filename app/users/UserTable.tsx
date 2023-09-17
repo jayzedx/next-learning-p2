@@ -23,6 +23,11 @@ const UserTable = async ({ sortOrder }: Props) => {
     sortOrder === 'email' ? (user) => user.email : (user) => user.name
   );
 
+  /**
+   * Link will only download target
+   * Pre fetch links are in the viewport
+   * Cache pages on client
+   */
   return (
     <>
       <table className="table table-bordered">
