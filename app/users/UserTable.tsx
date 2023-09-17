@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
+import { sort } from 'fast-sort';
 
 interface User {
   id: number;
@@ -6,33 +8,44 @@ interface User {
   email: string;
 }
 
-const UserTable = async () => {
+interface Props {
+  sortOrder: string;
+}
+
+const UserTable = async ({ sortOrder }: Props) => {
   const res = await fetch('https://jsonplaceholder.typicode.com/users', {
-    next: { revalidate: 5 }, // cache for 5 second
+    // next: { revalidate: 5 }, // cache for 5 second
     cache: 'no-store', // no caching
   });
 
   const users: User[] = await res.json();
+  const sortedUsers = sort(users).asc(
+    sortOrder === 'email' ? (user) => user.email : (user) => user.name
+  );
+
   return (
-    <div>
+    <>
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Email</th>
+            <th>
+              <Link href="/users?sortOrder=name">Name</Link>
+            </th>
+            <th>
+              <Link href="/users?sortOrder=email">Email</Link>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {sortedUsers.map((user) => (
             <tr key={user.id}>
-              {user.name}
               <td>{user.name}</td>
               <td>{user.email}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </>
   );
 };
 
