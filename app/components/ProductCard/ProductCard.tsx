@@ -5,7 +5,7 @@ import AddToCart from '../AddToCart';
 const ProductCard = () => {
   return (
     <div
-      className={`${styles.card} p-5 my-5  cursor-pointer text-center text-white text-xl rounded-full bg-cyan-600 hover:bg-cyan-800`}
+      className={`${styles.card} p-5 my-5 text-center text-white text-xl rounded-lg`}
     >
       <AddToCart />
     </div>
