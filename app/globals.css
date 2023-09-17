@@ -14,9 +14,29 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  padding: 1rem;
 }
 
 .user-list {
   display: block;
+}
+
+@layer base {
+  h1 {
+    @apply font-extrabold text-2xl mb-3;
+  }
+}
+
+@layer utilities {
+  .text-center {
+    text-align: center;
+  }
+  .bg-primary {
+    background-color: #3490dc;
+  }
+}
+
+@layer components {
+  .custom-card {
+    @apply shadow-md p-4 bg-white rounded-lg;
+  }
 }
